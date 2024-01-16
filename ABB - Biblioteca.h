@@ -58,24 +58,6 @@ void posOrdem_AB(no *T) {
 	}
 }
 
-// int conta_AB(no *T, int x) {
-// 	if(T != NULL) {
-// 		x++;
-// 		x=conta_AB(T->Llink, x);
-// 		x=conta_AB(T->Rlink, x);	
-// 	}
-// 	return x;
-// }
-
-/*
-void conta_AB(no *T, int *x) {
-	if(T != NULL) {
-		(*x)++;
-		conta_AB(T->Llink, x);
-		conta_AB(T->Rlink, x);	
-	}
-} */
-
 no *apaga_AB(no *T) {
 	no *p;
 	if(T != NULL) {
@@ -89,20 +71,6 @@ no *apaga_AB(no *T) {
 	return T;
 }
 
-
-// no *maior_AB(no *T) {
-//     no *p;
-// 	if (T != NULL) {
-// 		while (T->Rlink != NULL){
-// 			T = T->Rlink;
-// 		}
-// 		return T;  
-// 	}
-// 	else
-// 		return NULL;
-// }
-
-
 no *maior_AB(no *T) {
 	no *p;
  	if (T != NULL){
@@ -113,18 +81,6 @@ no *maior_AB(no *T) {
 		return p;
 	}
 }
-
-// no *menor_AB(no *T) {
-//     no *p;
-// 	if (T !=NULL) {
-// 		while (T->Llink != NULL){
-// 			T = T->Llink;
-// 		}
-// 			return T;  
-// 	}
-// 	else
-// 		return NULL;
-// }
 
 int altura_AB(no *T) {
 	int aL, aR;
@@ -202,87 +158,11 @@ no *rodaDireita(no *p) {
 	return q;
 }
 
-// // no *buscaPai(no *T, int x) {
-// // 	if (T == NULL || (T->Llink && T->Llink->info == x) || (T->Rlink && T->Rlink->info == x)) {
-// // 		cout << "O NO Pai de x e: " << T->info;
-// // 		return T;
-// // 	}
-
-// // 	if(T== NULL){
-// // 		return T;
-// // 	}
-// // 	if (x < T->info) {
-
-// // 		return buscaPai(T->Llink, x);
-// // 	} else {
-// // 		return buscaPai(T->Rlink, x);
-// // 	}
-// // }
-
-// no *buscaAB(no *T, int x){
-// 	if(T != NULL) {
-// 		if(x == T->info){
-// 			return T;
-// 		}
-// 		else if (x < T->info){	
-// 			buscaAB(T->Llink, x);
-// 		}
-// 		else {
-// 		buscaAB(T->Rlink, x);
-// 		}
-// 	}
-// 	else {
-// 	return T;
-// }
-// }
-
-// void imprimeFilhos_AB(no *T, int x) {
-
-// 	no *nodo = buscaAB(T, x);
-
-
-// 	if (nodo != NULL) {
-
-// 		cout << "No: " << nodo->info << endl;
-	
-
-// 		if (nodo->Llink != NULL) {
-
-// 			cout << "Filho da Esquerda: " << nodo->Llink->info << endl;
-
-// 		} else {
-
-// 			cout << "Nao ha filho da Esquerda." << endl;
-
-// 		}
-
-
-
-// 		if (nodo->Rlink != NULL) {
-
-// 			cout << "Filho da Direita: " << nodo->Rlink->info << endl;
-	
-// 		} else {
-
-// 			cout << "Nao ha filho da Direita." << endl;
-	
-// 		}
-
-// 	} else {
-
-// 	cout << "No nao encontrado." << endl;
-
-// 	}
-
-// }
-
-// void imprimeDecrescente_AB(no *T) {
-// 	if (T != NULL) {
-
-// 		imprimeDecrescente_AB(T->Rlink);
-
-// 		cout << T->info << " ";
-
-// 		imprimeDecrescente_AB(T->Llink);
-// 	}
-// }
+no *rodaEsquerda(no *p) {
+    no *temp, *q;
+	q = p->Rlink;
+	temp = q->Llink;
+	q->Llink = p;
+	p->Rlink = temp;
+	return q;
+}
