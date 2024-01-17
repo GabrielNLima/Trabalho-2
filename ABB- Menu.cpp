@@ -48,6 +48,5 @@ int main(){
 				printf("\n");	
 				break;
 		} 
-		while (c != 5);
-	}
+	} while (c != 5);
 }
