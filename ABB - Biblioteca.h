@@ -58,30 +58,6 @@ void posOrdem_AB(no *T) {
 	}
 }
 
-no *apaga_AB(no *T) {
-	no *p;
-	if(T != NULL) {
-		apaga_AB(T->Llink);
-		apaga_AB(T->Rlink);
-		printf("apagando - %d - ", T->info);
-		p = T;	
-		free(p);
-		T = NULL;		
-	}
-	return T;
-}
-
-no *maior_AB(no *T) {
-	no *p;
- 	if (T != NULL){
- 		if(T->Rlink != NULL)
-			p = maior_AB(T->Rlink);
-		else
-			p=T;
-		return p;
-	}
-}
-
 int altura_AB(no *T) {
 	int aL, aR;
 		
@@ -96,55 +72,6 @@ int altura_AB(no *T) {
 		}
 		else{
 			return (aL+1);
-		}
-	}
-}
-
-no *remove_AB(no *T, int x){
-	no *p;
-
-	if (T == NULL) {
-		return NULL;
-	}
-	else{
-		if (x < T->info)
-			T->Llink = remove_AB(T->Llink, x);
-		else {
-			if (x > T->info)
-				T->Rlink = remove_AB(T->Rlink, x);
-			else {
-				//no folha
-				if ((T->Llink == NULL) && (T->Rlink == NULL)){
-					p = T;
-					free(p);
-					T = NULL;
-					return T;
-				}
-				else{
-					// so tem o filho da direita
-					if (T->Llink == NULL){ 
-						p = T;
-						T = T->Rlink;
-						free(p);
-						return T;
-					}
-					else{
-						// so tem o filho da esquerda 
-						if (T->Rlink == NULL){ 
-							p = T;
-							T = T->Llink;
-							free(p);
-							return T;
-						}
-						else {
-							// NO tem 2 filhos 
-							p = maior_AB(T->Llink);
-							T->info = p->info;
-							T->Llink = remove_AB(T->Llink,p->info);
-						}
-					}
-				}
-			}
 		}
 	}
 }
