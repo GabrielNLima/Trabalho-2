@@ -8,7 +8,6 @@ using namespace std;
 
 typedef struct TreeNo {
 	int info;
-	int altura;
 	struct TreeNo *Llink;
 	struct TreeNo *Rlink;
 } no;
@@ -41,28 +40,48 @@ void posOrdem_AB(no *T) {
 	}
 }
 
-no *rotacaoDireita(no *p) {
-	no *q = p->Llink;
-	no *temp = q->Rlink;
-	
-	q->Rlink = p;
-	p->Llink = temp;
-	
-	p->altura = altura(p);
-	q->altura = altura(q);
-	return q;
+no *rodaDireita(no *p, int x) {
+    no *temp, *q;
+	if(p==NULL){
+		return NULL;
+	}
+	else{
+		if(p->info==x){
+			q = p->Llink;
+			temp = q->Rlink;
+			q->Rlink = p;
+			p->Llink = temp;
+			return q;
+		}
+		else if(p->info>x){
+				p->Llink = rodaDireita(p->Llink, x);
+			}
+			else{
+				p->Rlink = rodaDireita(p->Rlink, x);
+			}
+	}
 }
 
-no *rotacaoEsquerda(no *p) {
-	no *q = p->Rlink;
-	no *temp = q->Llink;
-	
-	q->Llink = p;
-	p->Rlink = temp;
-	
-	p->altura = altura(p);
-	q->altura = altura(q);
-	return q;
+no *rodaEsquerda(no *p, int x) {
+    no *temp, *q;
+	if(p==NULL){
+		return NULL;
+	}
+	else{
+		if(p->info==x){
+			q = p->Rlink;
+			temp = q->Llink;
+			q->Llink = p;
+			p->Rlink = temp;
+			return q;
+		}
+		else if(p->info>x){
+				p->Rlink = rodaEsquerda(p->Rlink, x);
+			}
+			else{
+				p->Llink = rodaEsquerda(p->Llink, x);
+			}
+	}
 }
 
 int maximo(int x, int y){
@@ -87,33 +106,46 @@ int Fb(no *p){
 no* balance(no *p){
 	if( Fb(p) == 2 ){
 		if( Fb(p->Rlink) < 0 )
-			p->Rlink = rotacaoDireita(p->Rlink);
-			return rotacaoEsquerda(p);
+			p->Rlink = rodaDireita(p->Rlink);
+			return rodaEsquerda(p);
 	}
 		if( Fb(p) == -2 ){
 			if( Fb(p->Llink) > 0 )
-				p->Llink = rotacaoEsquerda(p->Llink);
-				return rotacaoDireita(p);
+				p->Llink = rodaEsquerda(p->Llink);
+				return rodaDireita(p);
 		}
 	return p;
 }
 
 
-no *insere_AB(no *T, int x) {
+no *insere_AB(no *T, int valor) {
 	if (T == NULL){
 		T = (no *) malloc (sizeof(no));
-		T->info = x;
+		T->info = valor;
 		T->Llink = NULL;
 		T->Rlink = NULL;
 		return T;
 	}
 	else {
-		if (x < T->info) 
-			T->Llink = insere_AB(T->Llink, x);
+		if (valor < T->info) 
+			T->Llink = insere_AB(T->Llink, valor);
 		else {	 
-			T->Rlink = insere_AB(T->Rlink, x);
+			T->Rlink = insere_AB(T->Rlink, valor);
 		}
 	}
-	balance(T);
-	return T;
+	int fatbal = Fb(T);
+		if (fatbal > 1 && valor > T->Rlink->info){
+			return rodaEsquerda(T);
+		}
+		if (fatbal < -1 && valor < T->Llink->info){
+			return rodaDireita(T);
+		}
+		if (fatbal > 1 && valor < T->Rlink->info){
+			T->Rlink = rodaDireita(T->Rlink);
+			return rodaEsquerda(T);
+		}
+		if (fatbal < -1 && valor > T->Llink->info){
+			T->Llink = rodaEsquerda(T->Llink);
+			return rodaDireita(T);
+		}
 }

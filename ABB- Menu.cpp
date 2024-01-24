@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
-#include "ABB - Biblioteca.h"
+#include "AVL.h"
 
 using namespace std;
 
@@ -33,7 +33,7 @@ int main(){
 			case 1: 
 				cout << " \nEntre com o item a ser inserido: ";
 				cin >> x;
-				T = insere_AB(T,x); 
+				T = insere_AVL(T,x); 
 				break;
 			case 2: 
 				emOrdem_AB(T);
